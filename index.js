@@ -136,9 +136,9 @@ console.log(`Total Months: ${monthAmount}`);
 
 let profit = finances.reduce((sum, current) => sum + current[1], 0);
 
-const formatter = new Intl.NumberFormat('uk-UA', {
+const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
-  currency: 'GPB',
+  currency: 'USD',
 });
 
 const formattedProfit = formatter.format(profit);
@@ -156,8 +156,6 @@ for (let i = 1; i < finances.length; i++) {
   profitChange = profitChange + change;
 };
 
-console.log(changes);
-
 let averageProfitChange = profitChange / (monthAmount - 1);
 let formattedAverageProfitChange = formatter.format(averageProfitChange);
 console.log(`Average Change: ${formattedAverageProfitChange}`);
@@ -168,6 +166,6 @@ let maxIncrease = changes.reduce((max, current) => current[1] > max[1] ? current
 
 let maxDecrease = changes.reduce((min, current) => current[1] < min[1] ? current : min, changes[0]);
 
-console.log(`Greatest Increase in Profits/Losses: ${maxIncrease}`);
-console.log(`Greatest Decrease in Profits/Losses: ${maxDecrease}`);
+console.log(`Greatest Increase in Profits/Losses: ${maxIncrease[0]} ($${maxIncrease[1]})`);
+console.log(`Greatest Decrease in Profits/Losses: ${maxDecrease[0]} ($${maxDecrease[1]})`);
 
