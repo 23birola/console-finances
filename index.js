@@ -37,6 +37,7 @@
 // variables declared inside the loop:
 // current data point
 // previous data point
+
 let finances = [
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
@@ -126,8 +127,12 @@ let finances = [
   ['Feb-2017', 671099],
 ];
 
+// Find month amount
+
 let monthAmount = finances.length;
-console.log(`Amount of month is ${monthAmount}`);
+console.log(`Total Months: ${monthAmount}`);
+
+// Find total profit
 
 let profit = finances.reduce((sum, current) => sum + current[1], 0);
 
@@ -138,23 +143,31 @@ const formatter = new Intl.NumberFormat('uk-UA', {
 
 const formattedProfit = formatter.format(profit);
 
-console.log(`Profit for ${monthAmount} is ${formattedProfit}`);
+console.log(`Total Profit: ${formattedProfit}`);
+
+// Find average profit change
 
 let profitChange = 0;
 let changes = [];
 
 for (let i = 1; i < finances.length; i++) {
   const change = finances[i][1] - finances[i-1][1];
-  changes.push(change);
+  changes.push([finances[i][0], change]);
   profitChange = profitChange + change;
-}
+};
+
+console.log(changes);
 
 let averageProfitChange = profitChange / (monthAmount - 1);
 let formattedAverageProfitChange = formatter.format(averageProfitChange);
-console.log(`Average Profit Change is ${formattedAverageProfitChange}`);
+console.log(`Average Change: ${formattedAverageProfitChange}`);
 
-let maxIncrease = formatter.format(Math.max(...changes));
-let maxDecrease = formatter.format(Math.min(...changes));
-console.log(`The greatest increase in Profit: ${maxIncrease}`);
-console.log(`The greatest decrease in Profit: ${maxDecrease}`);
+// Find the greatest increase and the greatest decrease in Profit
+
+let maxIncrease = changes.reduce((max, current) => current[1] > max[1] ? current : max, changes[0]);
+
+let maxDecrease = changes.reduce((min, current) => current[1] < min[1] ? current : min, changes[0]);
+
+console.log(`Greatest Increase in Profits/Losses: ${maxIncrease}`);
+console.log(`Greatest Decrease in Profits/Losses: ${maxDecrease}`);
 
